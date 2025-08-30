@@ -67,27 +67,34 @@ export const useRecipeBank = () => {
 
   const generateRecipeBank = async (category?: string) => {
     try {
+      console.log('🔥 useRecipeBank: generateRecipeBank called with category:', category);
       setIsGenerating(true);
       
+      console.log('🔥 useRecipeBank: Calling supabase function...');
       const { data, error } = await supabase.functions.invoke('generate-recipe-bank', {
         body: { category }
       });
       
+      console.log('🔥 useRecipeBank: Supabase function response:', { data, error });
+      
       if (error) {
+        console.error('🔥 useRecipeBank: Supabase function error:', error);
         throw error;
       }
 
-      console.log('Recipe bank generation result:', data);
+      console.log('🔥 useRecipeBank: Recipe bank generation result:', data);
       
       // Reload recipes after generation
+      console.log('🔥 useRecipeBank: Reloading recipes...');
       await loadRecipes();
       
       return data;
     } catch (error) {
-      console.error('Error generating recipe bank:', error);
+      console.error('🔥 useRecipeBank: Error generating recipe bank:', error);
       throw error;
     } finally {
       setIsGenerating(false);
+      console.log('🔥 useRecipeBank: Generation finished, isGenerating set to false');
     }
   };
 

@@ -20,7 +20,12 @@ export const RecipeBankManager = () => {
 
   const handleGenerateBank = async (category?: string) => {
     try {
-      await generateRecipeBank(category);
+      console.log('🔥 HandleGenerateBank called with category:', category);
+      console.log('🔥 Starting recipe generation...');
+      
+      const result = await generateRecipeBank(category);
+      console.log('🔥 Recipe generation completed:', result);
+      
       const categoryName = category ? 
         (category.charAt(0).toUpperCase() + category.slice(1)) : 
         "Banco completo";
@@ -31,9 +36,10 @@ export const RecipeBankManager = () => {
           "Se han creado 39 recetas únicas con sus imágenes.",
       });
     } catch (error) {
+      console.error('🔥 Error in handleGenerateBank:', error);
       toast({
         title: "Error al generar recetas",
-        description: "Hubo un problema generando las recetas. Inténtalo de nuevo.",
+        description: error instanceof Error ? error.message : "Hubo un problema generando las recetas. Inténtalo de nuevo.",
         variant: "destructive",
       });
     }
