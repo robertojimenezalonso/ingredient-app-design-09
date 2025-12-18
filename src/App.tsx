@@ -33,11 +33,12 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<InitialWelcomePage />} />
+            <Route path="/" element={<RecipeListPage />} />
+            <Route path="/milista" element={<RecipeListPage />} />
             <Route path="/calendar-selection" element={<CalendarSelectionPage />} />
             <Route path="/people-and-diet" element={<PeopleAndDietPage />} />
             <Route path="/subscription-benefits" element={<SubscriptionBenefitsPage />} />
-            <Route path="/milista" element={<RecipeListPage />} />
+            <Route path="/welcome" element={<InitialWelcomePage />} />
             <Route path="/search-offers" element={<SearchOffersPage />} />
             <Route path="/supermarket/:supermarket" element={<SupermarketDetailPage />} />
             
