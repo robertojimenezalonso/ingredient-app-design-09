@@ -22,6 +22,124 @@ const RecipeListPage = () => {
   const { showTabs, activeTab: activeTabDate, mealPlan, sectionRefs, scrollToDate } = useDateTabs();
   const [aiRecipes, setAiRecipes] = useState<Recipe[]>([]);
 
+  // Example recipes for display
+  const exampleRecipes: Recipe[] = [
+    {
+      id: 'example-1',
+      title: 'Tortilla Española',
+      image: '/lovable-uploads/8530d68e-8316-44b0-8389-d319fd405949.png',
+      calories: 250,
+      time: 30,
+      category: 'lunch',
+      servings: 4,
+      macros: { carbs: 20, protein: 12, fat: 15 },
+      ingredients: [
+        { id: 'ing-1', name: 'Patatas', amount: '500', unit: 'g', selected: true },
+        { id: 'ing-2', name: 'Huevos', amount: '6', unit: 'unidades', selected: true },
+        { id: 'ing-3', name: 'Cebolla', amount: '1', unit: 'unidad', selected: true },
+        { id: 'ing-4', name: 'Aceite de oliva', amount: '100', unit: 'ml', selected: true },
+        { id: 'ing-5', name: 'Sal', amount: '1', unit: 'pizca', selected: true },
+      ],
+      instructions: ['Pelar y cortar patatas', 'Freír a fuego lento', 'Batir huevos', 'Mezclar y cuajar'],
+      nutrition: { calories: 250, protein: 12, carbs: 20, fat: 15, fiber: 2, sugar: 1 }
+    },
+    {
+      id: 'example-2',
+      title: 'Ensalada César',
+      image: '/lovable-uploads/d923963b-f4fc-4381-8216-90ad753ef245.png',
+      calories: 180,
+      time: 15,
+      category: 'lunch',
+      servings: 2,
+      macros: { carbs: 10, protein: 15, fat: 10 },
+      ingredients: [
+        { id: 'ing-6', name: 'Lechuga romana', amount: '1', unit: 'unidad', selected: true },
+        { id: 'ing-7', name: 'Pollo a la plancha', amount: '200', unit: 'g', selected: true },
+        { id: 'ing-8', name: 'Queso parmesano', amount: '50', unit: 'g', selected: true },
+        { id: 'ing-9', name: 'Croutons', amount: '50', unit: 'g', selected: true },
+        { id: 'ing-10', name: 'Salsa César', amount: '3', unit: 'cucharadas', selected: true },
+      ],
+      instructions: ['Lavar y cortar lechuga', 'Cortar pollo en tiras', 'Mezclar ingredientes', 'Aliñar'],
+      nutrition: { calories: 180, protein: 15, carbs: 10, fat: 10, fiber: 3, sugar: 2 }
+    },
+    {
+      id: 'example-3',
+      title: 'Pasta Carbonara',
+      image: '/lovable-uploads/7f516dd8-5753-49bd-9b5d-aa5c0bfeedd1.png',
+      calories: 450,
+      time: 25,
+      category: 'dinner',
+      servings: 2,
+      macros: { carbs: 55, protein: 18, fat: 20 },
+      ingredients: [
+        { id: 'ing-11', name: 'Espaguetis', amount: '200', unit: 'g', selected: true },
+        { id: 'ing-12', name: 'Panceta', amount: '100', unit: 'g', selected: true },
+        { id: 'ing-13', name: 'Huevos', amount: '2', unit: 'unidades', selected: true },
+        { id: 'ing-14', name: 'Queso pecorino', amount: '50', unit: 'g', selected: true },
+        { id: 'ing-15', name: 'Pimienta negra', amount: '1', unit: 'pizca', selected: true },
+      ],
+      instructions: ['Cocer pasta', 'Dorar panceta', 'Mezclar huevos con queso', 'Unir todo fuera del fuego'],
+      nutrition: { calories: 450, protein: 18, carbs: 55, fat: 20, fiber: 2, sugar: 1 }
+    },
+    {
+      id: 'example-4',
+      title: 'Tostadas con Aguacate',
+      image: '/lovable-uploads/a06f3ae9-f80a-48b6-bf55-8c1b736c79f8.png',
+      calories: 220,
+      time: 10,
+      category: 'breakfast',
+      servings: 1,
+      macros: { carbs: 25, protein: 8, fat: 12 },
+      ingredients: [
+        { id: 'ing-16', name: 'Pan integral', amount: '2', unit: 'rebanadas', selected: true },
+        { id: 'ing-17', name: 'Aguacate', amount: '1', unit: 'unidad', selected: true },
+        { id: 'ing-18', name: 'Huevo poché', amount: '1', unit: 'unidad', selected: true },
+        { id: 'ing-19', name: 'Sal y pimienta', amount: '1', unit: 'pizca', selected: true },
+        { id: 'ing-20', name: 'Semillas de sésamo', amount: '1', unit: 'cucharada', selected: true },
+      ],
+      instructions: ['Tostar pan', 'Machacar aguacate', 'Pochar huevo', 'Montar y servir'],
+      nutrition: { calories: 220, protein: 8, carbs: 25, fat: 12, fiber: 5, sugar: 1 }
+    },
+    {
+      id: 'example-5',
+      title: 'Gazpacho Andaluz',
+      image: '/lovable-uploads/967d027e-2a1d-40b3-b300-c73dbb88963a.png',
+      calories: 120,
+      time: 15,
+      category: 'appetizer',
+      servings: 4,
+      macros: { carbs: 12, protein: 3, fat: 7 },
+      ingredients: [
+        { id: 'ing-21', name: 'Tomates maduros', amount: '1', unit: 'kg', selected: true },
+        { id: 'ing-22', name: 'Pepino', amount: '1', unit: 'unidad', selected: true },
+        { id: 'ing-23', name: 'Pimiento verde', amount: '1', unit: 'unidad', selected: true },
+        { id: 'ing-24', name: 'Ajo', amount: '1', unit: 'diente', selected: true },
+        { id: 'ing-25', name: 'Aceite de oliva', amount: '50', unit: 'ml', selected: true },
+      ],
+      instructions: ['Lavar verduras', 'Triturar todo', 'Añadir aceite', 'Enfriar y servir'],
+      nutrition: { calories: 120, protein: 3, carbs: 12, fat: 7, fiber: 3, sugar: 6 }
+    },
+    {
+      id: 'example-6',
+      title: 'Pollo al Limón',
+      image: '/lovable-uploads/71eecaf2-ff51-47ff-beef-72570cb4f960.png',
+      calories: 280,
+      time: 35,
+      category: 'dinner',
+      servings: 3,
+      macros: { carbs: 8, protein: 35, fat: 12 },
+      ingredients: [
+        { id: 'ing-26', name: 'Pechugas de pollo', amount: '500', unit: 'g', selected: true },
+        { id: 'ing-27', name: 'Limones', amount: '2', unit: 'unidades', selected: true },
+        { id: 'ing-28', name: 'Ajo', amount: '3', unit: 'dientes', selected: true },
+        { id: 'ing-29', name: 'Romero fresco', amount: '2', unit: 'ramitas', selected: true },
+        { id: 'ing-30', name: 'Aceite de oliva', amount: '3', unit: 'cucharadas', selected: true },
+      ],
+      instructions: ['Marinar pollo', 'Dorar en sartén', 'Añadir limón', 'Hornear 20 min'],
+      nutrition: { calories: 280, protein: 35, carbs: 8, fat: 12, fiber: 1, sugar: 2 }
+    }
+  ];
+
   // Load AI recipes from localStorage when component mounts
   useEffect(() => {
     console.log('RecipeListPage: Component mounted, checking localStorage...');
@@ -33,15 +151,14 @@ const RecipeListPage = () => {
       try {
         const parsedRecipes = JSON.parse(savedAiRecipes);
         console.log('RecipeListPage: Successfully parsed AI recipes:', parsedRecipes.length, 'recipes');
-        console.log('RecipeListPage: Recipe titles:', parsedRecipes.map(r => r.title));
+        console.log('RecipeListPage: Recipe titles:', parsedRecipes.map((r: Recipe) => r.title));
         setAiRecipes(parsedRecipes);
         console.log('RecipeListPage: AI recipes state updated');
-        // Keep recipes in localStorage for future visits - don't remove them
       } catch (error) {
         console.error('RecipeListPage: Error parsing AI recipes from localStorage:', error);
       }
     } else {
-      console.log('RecipeListPage: No AI recipes found in localStorage');
+      console.log('RecipeListPage: No AI recipes found in localStorage, using examples');
     }
   }, []);
 
@@ -88,8 +205,8 @@ const RecipeListPage = () => {
     day.meals.map(meal => meal.recipe).filter(Boolean)
   );
   
-  // Only show AI recipes if available, no fallback to examples
-  const recommendedRecipes = aiRecipes.length > 0 ? aiRecipes : [];
+  // Show AI recipes if available, otherwise show example recipes
+  const recommendedRecipes = aiRecipes.length > 0 ? aiRecipes : exampleRecipes;
 
   console.log('RecipeListPage: Current recipes state:', {
     aiRecipesCount: aiRecipes.length,
