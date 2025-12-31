@@ -1,63 +1,29 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { UserConfigProvider } from "./contexts/UserConfigContext";
-import InitialWelcomePage from "./pages/InitialWelcomePage";
 import HomePage from "./pages/HomePage";
 import RecipeListPage from "./pages/RecipeListPage";
-import SearchOffersPage from "./pages/SearchOffersPage";
-import CalendarSelectionPage from "./pages/CalendarSelectionPage";
-import PeopleAndDietPage from "./pages/PeopleAndDietPage";
-import SubscriptionBenefitsPage from "./pages/SubscriptionBenefitsPage";
-import Index from "./pages/Index";
-import CategoryPage from "./pages/CategoryPage";
-import RecipeDetailPage from "./pages/RecipeDetailPage";
-import CartPage from "./pages/CartPage";
-import ProfilePage from "./pages/ProfilePage";
 import AuthPage from "./pages/AuthPage";
-import SupermarketDetailPage from "./pages/SupermarketDetailPage";
-import { CambioRecetaPage } from "./pages/CambioRecetaPage";
-import RecipeBankAdminPage from "./pages/RecipeBankAdminPage";
-import { DailySummaryPage } from "./pages/DailySummaryPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <UserConfigProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/milista" element={<RecipeListPage />} />
-            <Route path="/calendar-selection" element={<CalendarSelectionPage />} />
-            <Route path="/people-and-diet" element={<PeopleAndDietPage />} />
-            <Route path="/subscription-benefits" element={<SubscriptionBenefitsPage />} />
-            <Route path="/welcome" element={<InitialWelcomePage />} />
-            <Route path="/search-offers" element={<SearchOffersPage />} />
-            <Route path="/supermarket/:supermarket" element={<SupermarketDetailPage />} />
-            
-            
-            <Route path="/category/:category" element={<CategoryPage />} />
-            <Route path="/recipe/:id" element={<RecipeDetailPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/cambioReceta" element={<CambioRecetaPage />} />
-            <Route path="/recipe-bank-admin" element={<RecipeBankAdminPage />} />
-            <Route path="/recipe-table" element={<DailySummaryPage />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </UserConfigProvider>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/milista" element={<RecipeListPage />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
   </QueryClientProvider>
 );
 
