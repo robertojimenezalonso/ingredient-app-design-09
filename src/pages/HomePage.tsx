@@ -136,7 +136,7 @@ const ShoppingListCard = ({ list }: { list: typeof shoppingLists[0] }) => {
   return (
     <Card 
       className="overflow-hidden cursor-pointer hover:shadow-lg transition-shadow border-border"
-      onClick={() => navigate("/milista")}
+      onClick={() => navigate(`/lista/${list.id}`)}
     >
       <CardContent className="p-4">
         <div className="flex gap-4">
